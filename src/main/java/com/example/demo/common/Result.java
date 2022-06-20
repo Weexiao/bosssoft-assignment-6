@@ -1,8 +1,7 @@
-package com.example.demo.utils;
+package com.example.demo.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Data
