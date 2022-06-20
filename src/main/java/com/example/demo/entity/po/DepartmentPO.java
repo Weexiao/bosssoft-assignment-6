@@ -58,4 +58,16 @@ public class DepartmentPO implements Serializable {
      * 是否删除(0-未删除 1-已删除)
      */
     private Integer isDelete;
+
+    /**
+     * 是否展开
+     */
+    @TableField(exist = false)
+    private Boolean open;
+
+    /**
+     * 子部门
+     */
+    @TableField(exist = false)
+    private List<DepartmentPO> children = new ArrayList<DepartmentPO>();
 }

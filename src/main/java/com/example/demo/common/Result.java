@@ -79,9 +79,9 @@ public class Result<T> {
      */
     public static<T> Result<T> exist(){
         Result<T> result = new Result<T>();
-        result.setSuccess(true);
+        result.setSuccess(false); //存在该数据
         result.setCode(ResultCode.SUCCESS);
-        result.setMessage("执行成功");
+        result.setMessage("该数据存在");
         return result;
     }
 }
