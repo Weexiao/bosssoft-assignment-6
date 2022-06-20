@@ -2,6 +2,8 @@ package com.example.demo.config.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.common.Result;
+import com.example.demo.common.ResultCode;
+import com.example.demo.exception.CustomAuthenticationException;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -29,7 +31,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         // 获取输出流
         ServletOutputStream out = httpServletResponse.getOutputStream();
         String message = null; // 设置错误信息
-        int code = 500; // 设置错误码
+        int code = ResultCode.ERROR; // 设置错误码
         // 判断异常类型
         if(exception instanceof AccountExpiredException){
             message = "账户过期,登录失败！";
@@ -43,6 +45,9 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
             message = "账户被锁,登录失败！";
         }else if(exception instanceof InternalAuthenticationServiceException){
             message = "账户不存在,登录失败！";
+        }else if(exception instanceof CustomAuthenticationException){
+            message = exception.getMessage();
+            code = ResultCode.NO_LOGIN;
         }else{
             message = "登录失败！";
         }

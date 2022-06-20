@@ -4,6 +4,7 @@ import com.example.demo.config.handler.AnonymousAuthenticationHandler;
 import com.example.demo.config.handler.CustomerAccessDeniedHandler;
 import com.example.demo.config.handler.LoginFailureHandler;
 import com.example.demo.config.handler.LoginSuccessHandler;
+import com.example.demo.filter.CheckTokenFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
 
@@ -36,6 +38,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private CustomerAccessDeniedHandler accessDeniedHandler;
 
+    @Resource
+    private CheckTokenFilter checkTokenFilter;
+
     /**
      * 注入加密处理类
      */
@@ -49,6 +54,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // 登录前先过滤
+        http.addFilterBefore(checkTokenFilter, UsernamePasswordAuthenticationFilter.class);
         // 登录前进行配置
         http.formLogin()
                 .loginProcessingUrl("/user/login")          // 表单登录请求的地址

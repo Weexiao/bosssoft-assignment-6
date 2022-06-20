@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.example.demo.common.LoginResult;
 import com.example.demo.common.ResultCode;
+import com.example.demo.config.redis.RedisService;
 import com.example.demo.entity.po.UserPO;
 import com.example.demo.utils.JwtUtils;
 import io.jsonwebtoken.Jwts;
@@ -26,6 +27,9 @@ import java.nio.charset.StandardCharsets;
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Resource
     private JwtUtils jwtUtils;
+
+    @Resource
+    private RedisService redisService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
@@ -52,5 +56,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         // 关闭输出流
         out.close();
 
+        // 将token存入redis
+        String tokenKey = "token_" + token;
+        redisService.set(tokenKey, token, jwtUtils.getExpiration() / 1000);
     }
 }
