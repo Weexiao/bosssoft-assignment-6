@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.example.demo.entity.po.PermissionPO;
+import com.example.demo.entity.po.UserPO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,34 +19,9 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class UserVO implements Serializable {
+public class UserVO extends UserPO {
 
-    private static final long serialVersionUID = 1L;
+    private Long pageNo = 1L; // 当前页
+    private Long pageSize = 10L; // 每页显示条数
 
-    /**
-     * 用户编号
-     */
-    private Long id;
-
-    /**
-     * 登录名称(用户名)
-     */
-    private String name;
-
-    /**
-     * 用户头像
-     */
-    private String avatar;
-
-    /**
-     * 介绍
-     */
-    private String introduction;
-
-    /**
-     * 用户权限集合
-     */
-    private Object[] roles;
 }

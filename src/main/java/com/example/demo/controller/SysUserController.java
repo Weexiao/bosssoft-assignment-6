@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.common.Result;
 import com.example.demo.config.redis.RedisService;
+import com.example.demo.entity.dto.UserDTO;
 import com.example.demo.entity.po.PermissionPO;
 import com.example.demo.entity.po.UserPO;
 import com.example.demo.entity.vo.RouterVO;
@@ -105,11 +106,11 @@ public class SysUserController {
                 .filter(item -> item != null)
                 .map(item -> item.getCode()).toArray();
         // 创建用户信息对象
-        UserVO userVO = new UserVO(userPO.getId(), userPO.getNickName(), userPO.getAvatar(),
+        UserDTO userDTO = new UserDTO(userPO.getId(), userPO.getNickName(), userPO.getAvatar(),
                 null, roles);
 
         // 返回结果
-        return Result.ok(userVO).message("用户信息查询成功");
+        return Result.ok(userDTO).message("用户信息查询成功");
     }
 
     /**

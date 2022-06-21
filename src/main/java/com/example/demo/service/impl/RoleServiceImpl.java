@@ -96,4 +96,15 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RolePO> implements 
         // 删除角色
         return baseMapper.deleteById(id) > 0;
     }
+
+    /**
+     * 根据用户ID查询已经拥有的角色ID
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Long> getRoleIdsByUserId(Long userId) {
+        return baseMapper.getRoleIdsByUserId(userId);
+    }
 }

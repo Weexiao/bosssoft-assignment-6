@@ -26,6 +26,11 @@ public interface RoleMapper extends BaseMapper<RolePO> {
      */
     int saveRolePermission(@Param("roleId") Long roleId, @Param("permissionIds") List<Long> permissionIds);
 
+    /**
+     * 判断该角色是否有用户
+     * @param roleId
+     * @return
+     */
     @Select("select count(1) from sys_user_role where role_id = #{roleId}")
     int getRoleCount(Long roleId);
 
@@ -35,4 +40,12 @@ public interface RoleMapper extends BaseMapper<RolePO> {
      */
     @Delete("delete from sys_role_permission where role_id = #{roleId}")
     void deleteRolePermissionByRoleId(Long roleId);
+
+    /**
+     * 根据用户ID查询已经拥有的角色ID
+     * @param userId
+     * @return
+     */
+    @Select("select role_id from sys_user_role where user_id = #{userId}")
+    List<Long> getRoleIdsByUserId(Long userId);
 }

@@ -46,4 +46,11 @@ public interface RoleService extends IService<RolePO> {
      * @return
      */
     boolean deleteRoleById(Long id);
+
+    /**
+     * 根据用户ID查询已经拥有的角色ID
+     * @param userId
+     * @return
+     */
+    List<Long> getRoleIdsByUserId(Long userId);
 }
