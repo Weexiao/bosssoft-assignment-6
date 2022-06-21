@@ -5,6 +5,8 @@ import com.example.demo.entity.po.RolePO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.demo.entity.vo.RoleVO;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -23,4 +25,25 @@ public interface RoleService extends IService<RolePO> {
      */
     IPage<RolePO> findRoleListByUserId(IPage<RolePO> page, RoleVO roleVO);
 
+    /**
+     * 保存用户权限关系
+     * @param roleId
+     * @param permissionIds
+     * @return
+     */
+    boolean saveRolePermission(Long roleId, List<Long> permissionIds);
+
+    /**
+     * 检查角色是否被分配
+     * @param roleId
+     * @return
+     */
+    boolean getRoleCount(Long roleId);
+
+    /**
+     * 根据id删除用户信息
+     * @param id
+     * @return
+     */
+    boolean deleteRoleById(Long id);
 }

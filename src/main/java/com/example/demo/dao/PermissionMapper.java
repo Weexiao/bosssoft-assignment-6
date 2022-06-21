@@ -21,4 +21,11 @@ public interface PermissionMapper extends BaseMapper<PermissionPO> {
      * @return
      */
     List<PermissionPO> findPermissionListByUserId(Long userId);
+
+    /**
+     * 根据角色ID查询权限列表
+     * @param roleId
+     * @return
+     */
+    List<PermissionPO> findPermissionListByRoleId(Long roleId);
 }

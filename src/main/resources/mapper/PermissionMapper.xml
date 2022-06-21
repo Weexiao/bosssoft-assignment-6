@@ -42,4 +42,14 @@
         order by p.id asc
     </select>
 
+    <select id="findPermissionListByRoleId" resultMap="BaseResultMap">
+        select
+            p.id, p.parent_id, p.label, p.parent_name, p.`code`, p.url, p.type, p.icon, p.remark, p.path, p.name,
+            p.create_time, p.update_time, p.order_num, p.is_delete
+        from
+            sys_permission as p
+        inner join sys_role_permission as rp on p.id = rp.permission_id
+        where
+            rp.role_id = #{roleId}
+    </select>
 </mapper>

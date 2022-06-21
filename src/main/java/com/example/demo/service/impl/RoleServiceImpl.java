@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -54,5 +55,45 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RolePO> implements 
             queryWrapper.eq("create_user", roleVO.getUserId());
         }
         return baseMapper.selectPage(page, queryWrapper);
+    }
+
+    /**
+     * 保存用户权限关系
+     *
+     * @param roleId
+     * @param permissionIds
+     * @return
+     */
+    @Override
+    public boolean saveRolePermission(Long roleId, List<Long> permissionIds) {
+        // 删除该角色的所有权限
+        baseMapper.deleteRolePermissionByRoleId(roleId);
+        // 添加新的权限
+        return baseMapper.saveRolePermission(roleId, permissionIds) > 0;
+    }
+
+    /**
+     * 检查角色是否被分配
+     *
+     * @param roleId
+     * @return
+     */
+    @Override
+    public boolean getRoleCount(Long roleId) {
+        return baseMapper.getRoleCount(roleId) > 0;
+    }
+
+    /**
+     * 根据id删除用户信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public boolean deleteRoleById(Long id) {
+        // 删除角色权限关系
+        baseMapper.deleteRolePermissionByRoleId(id);
+        // 删除角色
+        return baseMapper.deleteById(id) > 0;
     }
 }

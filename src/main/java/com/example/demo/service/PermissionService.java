@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.entity.po.PermissionPO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.demo.entity.vo.PermissionVO;
+import com.example.demo.entity.vo.RolePermissionVO;
 
 import java.util.List;
 
@@ -42,4 +43,12 @@ public interface PermissionService extends IService<PermissionPO> {
      * @return
      */
     boolean hasChildrenOfPermission(Long permissionId);
+
+    /**
+     * 查询分配设备树列表
+     * @param userId
+     * @param roleId
+     * @return
+     */
+    RolePermissionVO getAssignPermissionTree(Long userId, Long roleId);
 }

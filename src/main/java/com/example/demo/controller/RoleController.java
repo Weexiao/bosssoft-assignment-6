@@ -4,8 +4,11 @@ package com.example.demo.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.common.Result;
+import com.example.demo.entity.dto.RolePermissionDTO;
 import com.example.demo.entity.po.RolePO;
+import com.example.demo.entity.vo.RolePermissionVO;
 import com.example.demo.entity.vo.RoleVO;
+import com.example.demo.service.PermissionService;
 import com.example.demo.service.RoleService;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +30,8 @@ public class RoleController {
 
     @Resource
     private RoleService roleService;
+    @Resource
+    private PermissionService permissionService;
 
     /**
      * 分页查询角色列表
@@ -76,10 +81,52 @@ public class RoleController {
      */
     @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable Long id) {
-        if (roleService.removeById(id)) {
+        if (roleService.deleteRoleById(id)) {
             return Result.ok().message("角色删除成功");
         }
         return Result.error().message("角色删除失败");
     }
+
+    /**
+     * 分配权限-查询权限树数据
+     * @param userId
+     * @param roleId
+     * @return
+     */
+    @GetMapping("/getAssignPermissionTree")
+    public Result getAssignPermissionTree(Long userId, Long roleId) {
+        RolePermissionVO rolePermissionVO = permissionService.getAssignPermissionTree(userId, roleId);
+        return Result.ok(rolePermissionVO);
+    }
+
+    /**
+     * 分配权限-保存权限
+     * @param rolePermissionDTO
+     * @return
+     */
+    @PostMapping("/saveRolePermission")
+    public Result saveRolePermission(@RequestBody RolePermissionDTO rolePermissionDTO) {
+        System.out.println(rolePermissionDTO);
+        System.out.println(rolePermissionDTO.getRoleId());
+        System.out.println(rolePermissionDTO.getPermissionIds());
+        if (roleService.saveRolePermission(rolePermissionDTO.getRoleId(), rolePermissionDTO.getPermissionIds())) {
+            return Result.ok().message("权限分配成功");
+        }
+        return Result.error().message("权限分配失败");
+    }
+
+    /**
+     * 检查该角色是否被分配
+     * @param roleId
+     * @return
+     */
+    @GetMapping("/check/{roleId}")
+    public Result check(@PathVariable Long roleId) {
+        if (roleService.getRoleCount(roleId)) {
+            return Result.exist().message("该角色已被分配，不能删除");
+        }
+        return Result.ok().message("该角色未被分配，可以删除");
+    }
+
 }
 

@@ -111,7 +111,7 @@ public class PermissionController {
         if (permissionService.hasChildrenOfPermission(id)){
             return Result.exist().message("该菜单下有子菜单，无法删除");
         }
-        return Result.exist().message("该菜单下无子菜单，可以删除");
+        return Result.ok().message("该菜单下无子菜单，可以删除");
     }
 }
 
