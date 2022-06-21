@@ -11,6 +11,7 @@ import com.example.demo.entity.vo.UserVO;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.UserService;
 import com.example.demo.common.Result;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,6 +64,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('sys:user:add')")
     public Result add(@RequestBody UserPO userPO) {
         // 查询用户
         UserPO item = userService.getUserByUsername(userPO.getUsername());
@@ -85,6 +87,7 @@ public class UserController {
      * @return
      */
     @PutMapping("/update")
+    @PreAuthorize("hasAuthority('sys:user:edit')")
     public Result update(@RequestBody UserPO userPO) {
         System.out.println(userPO);
         // 查询用户
@@ -107,6 +110,7 @@ public class UserController {
      * @return
      */
     @DeleteMapping("/delete/{userId}")
+    @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result delete(@PathVariable Long userId) {
         // 调用删除用户信息的方法
         if (userService.removeById(userId)) {
@@ -121,6 +125,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/getRoleListForAssign")
+    @PreAuthorize("hasAuthority('sys:user:assign')")
     public Result getRoleListForAssign(RoleVO roleVO) {
         // 创建分页对象
         IPage<RolePO> page = new Page<RolePO>(roleVO.getPageNo(), roleVO.getPageSize());
@@ -135,6 +140,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/getRoleListByUserId/{userId}")
+    @PreAuthorize("hasAuthority('sys:user:assign')")
     public Result getRoleListByUserId(@PathVariable Long userId) {
         // 调用获取该用户拥有的角色列表的方法
         return Result.ok(roleService.getRoleIdsByUserId(userId));
@@ -146,12 +152,51 @@ public class UserController {
      * @return
      */
     @PostMapping("/saveUserRole")
+    @PreAuthorize("hasAuthority('sys:user:assign')")
     public Result saveUserRole(@RequestBody UserRoleDTO userRoleDTO) {
         // 调用分配角色的方法
         if (userService.saveUserRole(userRoleDTO.getUserId(), userRoleDTO.getRoleIds())) {
             return Result.ok().message("分配角色成功");
         }
         return Result.error().message("分配角色失败");
+    }
+
+    /**
+     * 用户注册
+     * @param userPO
+     * @return
+     */
+    @PostMapping("/register")
+    public Result register(@RequestBody UserPO userPO) {
+        // 查询用户
+        UserPO item = userService.getUserByUsername(userPO.getUsername());
+        // 判断用户是否存在
+        if (item != null) {
+            return Result.error().message("用户已存在，请重新输入");
+        }
+        // 密码加密
+        userPO.setPassword(passwordEncoder.encode(userPO.getPassword()));
+        // 调用保存用户信息的方法
+        if (userService.save(userPO)) {
+            return Result.ok().message("用户注册成功");
+        }
+        return Result.error().message("用户注册失败");
+    }
+
+    /**
+     * 修改密码
+     * @param userPO
+     * @return
+     */
+    @PutMapping("/updatePassword")
+    public Result updatePassword(@RequestBody UserPO userPO) {
+        userPO.setPassword(passwordEncoder.encode(userPO.getPassword()));
+        System.out.println(userPO);
+        // 调用修改密码的方法
+        if (userService.updatePassword(userPO)) {
+            return Result.ok().message("密码修改成功");
+        }
+        return Result.error().message("密码修改失败");
     }
 }
 

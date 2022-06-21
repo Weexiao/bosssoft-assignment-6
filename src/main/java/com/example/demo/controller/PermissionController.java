@@ -5,6 +5,7 @@ import com.example.demo.common.Result;
 import com.example.demo.entity.po.PermissionPO;
 import com.example.demo.entity.vo.PermissionVO;
 import com.example.demo.service.PermissionService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
@@ -68,6 +69,7 @@ public class PermissionController {
      * @return
      */
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('sys:menu:add')")
     public Result add(@RequestBody PermissionPO permissionPO){
         if (permissionService.save(permissionPO)){
             return Result.ok().message("菜单添加成功");
@@ -81,6 +83,7 @@ public class PermissionController {
      * @return
      */
     @PutMapping("/update")
+    @PreAuthorize("hasAuthority('sys:menu:edit')")
     public Result update(@RequestBody PermissionPO permissionPO){
         if (permissionService.updateById(permissionPO)){
             return Result.ok().message("菜单修改成功");
@@ -94,6 +97,7 @@ public class PermissionController {
      * @return
      */
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('sys:menu:delete')")
     public Result update(@PathVariable Long id){
         if (permissionService.removeById(id)){
             return Result.ok().message("菜单删除成功");
@@ -107,6 +111,7 @@ public class PermissionController {
      * @return
      */
     @GetMapping("/check/{id}")
+    @PreAuthorize("hasAuthority('sys:menu:delete')")
     public Result check(@PathVariable Long id){
         if (permissionService.hasChildrenOfPermission(id)){
             return Result.exist().message("该菜单下有子菜单，无法删除");

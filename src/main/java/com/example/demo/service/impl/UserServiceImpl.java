@@ -113,4 +113,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPO> implements 
         // 添加用户角色关系
         return baseMapper.saveUserRole(userId, roleIds) > 0;
     }
+
+    /**
+     * 修改用户密码
+     *
+     * @param userPO
+     * @return
+     */
+    @Override
+    public boolean updatePassword(UserPO userPO) {
+        // 创建条件构造器对象
+        QueryWrapper<UserPO> queryWrapper = new QueryWrapper<>();
+        // 用户名
+        queryWrapper.eq("username", userPO.getUsername());
+        // 查询
+        UserPO item = baseMapper.selectOne(queryWrapper);
+        // 判断用户是否存在
+        if (ObjectUtils.isEmpty(item)) {
+            return false;
+        }
+        // 修改密码
+        item.setPassword(userPO.getPassword());
+        // 修改
+        return baseMapper.updateById(item) > 0;
+    }
 }

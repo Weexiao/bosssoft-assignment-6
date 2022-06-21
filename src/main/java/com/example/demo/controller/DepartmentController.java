@@ -5,6 +5,7 @@ import com.example.demo.common.Result;
 import com.example.demo.entity.po.DepartmentPO;
 import com.example.demo.entity.vo.DepartmentVO;
 import com.example.demo.service.DepartmentService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
@@ -51,6 +52,7 @@ public class DepartmentController {
      * @return
      */
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('sys:department:add')")
     public Result addDepartment(@RequestBody DepartmentPO departmentPO) {
         if (departmentService.save(departmentPO)) {
             return Result.ok().message("部门添加成功");
@@ -65,6 +67,7 @@ public class DepartmentController {
      * @return
      */
     @PutMapping("/update")
+    @PreAuthorize("hasAuthority('sys:department:edit')")
     public Result updateDepartment(@RequestBody DepartmentPO departmentPO) {
         if (departmentService.updateById(departmentPO)) {
             return Result.ok().message("部门修改成功");
@@ -79,6 +82,7 @@ public class DepartmentController {
      * @return
      */
     @GetMapping("/check/{id}")
+    @PreAuthorize("hasAuthority('sys:department:delete')")
     public Result hasChildOfDepartment(@PathVariable Long id) {
         // 查询部门下是否有子部门
         if (departmentService.hasChildOfDepartment(id)) {
@@ -97,6 +101,7 @@ public class DepartmentController {
      * @return
      */
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('sys:department:delete')")
     public Result deleteDepartment(@PathVariable Long id) {
         if (departmentService.removeById(id)) {
             return Result.ok().message("部门删除成功");

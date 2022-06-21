@@ -47,4 +47,11 @@ public interface UserService extends IService<UserPO> {
      * @return
      */
     boolean saveUserRole(Long userId, List<Long> roleIds);
+
+    /**
+     * 修改用户密码
+     * @param userPO
+     * @return
+     */
+    boolean updatePassword(UserPO userPO);
 }
