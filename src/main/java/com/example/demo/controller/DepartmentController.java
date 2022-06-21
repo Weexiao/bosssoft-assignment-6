@@ -80,11 +80,15 @@ public class DepartmentController {
      */
     @GetMapping("/check/{id}")
     public Result hasChildOfDepartment(@PathVariable Long id) {
+        // 查询部门下是否有子部门
         if (departmentService.hasChildOfDepartment(id)) {
-            return Result.ok().message("该部门下有子部门");
-        }else {
-            return Result.error().message("该部门下没有子部门");
+            return Result.exist().message("该部门下有子部门, 无法删除");
         }
+        // 查询部门下是否有用户
+        if (departmentService.hasUserOfDepartment(id)) {
+            return Result.exist().message("该部门下有用户, 无法删除");
+        }
+        return Result.ok().message("该部门下无子部门或用户, 可以删除");
     }
 
     /**
