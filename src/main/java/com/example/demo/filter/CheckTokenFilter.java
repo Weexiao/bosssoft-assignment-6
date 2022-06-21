@@ -128,4 +128,5 @@ public class CheckTokenFilter extends OncePerRequestFilter {
         // 设置到Spring Security上下文
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
+
 }

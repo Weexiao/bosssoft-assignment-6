@@ -5,6 +5,7 @@ import com.example.demo.common.Result;
 import com.example.demo.entity.po.DepartmentPO;
 import com.example.demo.entity.vo.DepartmentVO;
 import com.example.demo.service.DepartmentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,8 @@ import javax.annotation.Resource;
  * @author wuhu
  * @since 2022-06-20
  */
+
+@Slf4j
 @RestController
 @RequestMapping("/department")
 public class DepartmentController {
@@ -34,6 +37,7 @@ public class DepartmentController {
      */
     @GetMapping("/list")
     public Result findDepartmentList(DepartmentVO departmentVO) {
+        log.debug("获取部门列表");
         return Result.ok(departmentService.findDepartmentList(departmentVO));
     }
 
@@ -43,6 +47,7 @@ public class DepartmentController {
      */
     @GetMapping("/parent/list")
     public Result findParentDepartment() {
+        log.debug("获取上级部门列表");
         return Result.ok(departmentService.findParentDepartment());
     }
 
@@ -54,6 +59,7 @@ public class DepartmentController {
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('sys:department:add')")
     public Result addDepartment(@RequestBody DepartmentPO departmentPO) {
+        log.debug("添加部门");
         if (departmentService.save(departmentPO)) {
             return Result.ok().message("部门添加成功");
         }else {
@@ -69,6 +75,7 @@ public class DepartmentController {
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('sys:department:edit')")
     public Result updateDepartment(@RequestBody DepartmentPO departmentPO) {
+        log.debug("修改部门");
         if (departmentService.updateById(departmentPO)) {
             return Result.ok().message("部门修改成功");
         }else {
@@ -84,6 +91,7 @@ public class DepartmentController {
     @GetMapping("/check/{id}")
     @PreAuthorize("hasAuthority('sys:department:delete')")
     public Result hasChildOfDepartment(@PathVariable Long id) {
+        log.debug("查询某个部门下是否有子部门");
         // 查询部门下是否有子部门
         if (departmentService.hasChildOfDepartment(id)) {
             return Result.exist().message("该部门下有子部门, 无法删除");
@@ -103,6 +111,7 @@ public class DepartmentController {
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('sys:department:delete')")
     public Result deleteDepartment(@PathVariable Long id) {
+        log.debug("删除部门");
         if (departmentService.removeById(id)) {
             return Result.ok().message("部门删除成功");
         }else {

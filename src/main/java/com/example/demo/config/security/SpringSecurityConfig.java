@@ -5,6 +5,7 @@ import com.example.demo.config.handler.CustomerAccessDeniedHandler;
 import com.example.demo.config.handler.LoginFailureHandler;
 import com.example.demo.config.handler.LoginSuccessHandler;
 import com.example.demo.filter.CheckTokenFilter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -21,6 +22,8 @@ import javax.annotation.Resource;
 /**
  * 将各种设置贯穿起来，并整合
  */
+
+@Slf4j
 @Configuration
 @EnableWebSecurity
 // 开启权限注解控制
@@ -57,6 +60,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        log.debug("处理登录认证");
         // 登录前先过滤
         http.addFilterBefore(checkTokenFilter, UsernamePasswordAuthenticationFilter.class);
         // 登录前进行配置
@@ -88,6 +92,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        log.debug("设置认证管理器");
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 }

@@ -1,11 +1,13 @@
 package com.example.demo.config.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Slf4j
 @Component
 public class CommonMetaObjectHandler implements MetaObjectHandler {
 
@@ -19,6 +21,7 @@ public class CommonMetaObjectHandler implements MetaObjectHandler {
         // 参数2：属性名称
         // 参数3：类对象
         // 参数4：当前系统时间
+        log.debug("已自动填充创建时间、更新时间字段");
         this.strictInsertFill(metaObject, "createTime", Date.class, new Date());
         this.strictUpdateFill(metaObject, "updateTime", Date.class, new Date());
     }
@@ -29,6 +32,7 @@ public class CommonMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
+        log.debug("已自动填充更新时间字段");
         this.strictUpdateFill(metaObject, "updateTime", Date.class, new Date());
     }
 }

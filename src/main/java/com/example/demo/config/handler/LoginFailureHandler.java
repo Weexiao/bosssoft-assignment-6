@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.demo.common.Result;
 import com.example.demo.common.ResultCode;
 import com.example.demo.exception.CustomAuthenticationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -19,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 登录认证失败处理器类
  */
+@Slf4j
 @Component
 public class LoginFailureHandler implements AuthenticationFailureHandler {
     @Override
@@ -26,6 +28,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
                                         HttpServletResponse httpServletResponse,
                                         AuthenticationException exception)
             throws IOException, ServletException {
+        log.debug("登录认证失败处理器配置成功");
         // 设置响应的内容编码格式
         httpServletResponse.setContentType("application/json;charset=utf-8");
         // 获取输出流

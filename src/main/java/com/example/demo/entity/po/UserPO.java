@@ -13,6 +13,8 @@ import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.Pattern;
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_user")

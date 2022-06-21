@@ -8,6 +8,7 @@ import com.example.demo.config.redis.RedisService;
 import com.example.demo.entity.po.UserPO;
 import com.example.demo.utils.JwtUtils;
 import io.jsonwebtoken.Jwts;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 登录认证成功处理器类
  */
+@Slf4j
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Resource
@@ -33,6 +35,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+        log.debug("登录认证成功处理器类配置成功");
         // 设置响应的内容编码格式
         httpServletResponse.setContentType("application/json;charset=utf-8");
         // 获取当前登录用户的信息

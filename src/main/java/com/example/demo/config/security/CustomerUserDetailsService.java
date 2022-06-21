@@ -4,6 +4,7 @@ import com.example.demo.entity.po.PermissionPO;
 import com.example.demo.entity.po.UserPO;
 import com.example.demo.service.PermissionService;
 import com.example.demo.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
  * 用户认证处理类，主要用于从数据库查询用户信息
  * @author wuhu
  */
+@Slf4j
 @Component
 public class CustomerUserDetailsService implements UserDetailsService {
 
@@ -30,6 +32,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.debug("loadUserByUsername username: {}", username);
         // 根据用户名查询用户
         UserPO user = userService.getUserByUsername(username);
         // 如果对象为空，则认证失败

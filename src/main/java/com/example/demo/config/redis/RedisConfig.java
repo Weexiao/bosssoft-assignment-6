@@ -3,6 +3,7 @@ package com.example.demo.config.redis;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ import java.time.Duration;
 /**
  * redis配置类
  */
+@Slf4j
 @Configuration
 public class RedisConfig {
     //缓存过期时间
@@ -28,7 +30,8 @@ public class RedisConfig {
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
-        RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+        log.debug("redis配置类配置成功");
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
         // 配置连接工厂
         template.setConnectionFactory(factory);
         //使用Jackson2JsonRedisSerialize 替换默认序列化(默认采用的是JDK序列化)

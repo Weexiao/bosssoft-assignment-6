@@ -11,6 +11,7 @@ import com.example.demo.entity.vo.UserVO;
 import com.example.demo.utils.JwtUtils;
 import com.example.demo.utils.MenuTreeUtils;
 import io.jsonwebtoken.Jwts;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +29,8 @@ import java.util.stream.Collectors;
 /**
  * 刷新Token
  */
+
+@Slf4j
 @RestController
 @RequestMapping("/sysUser")
 public class SysUserController {
@@ -44,6 +47,7 @@ public class SysUserController {
      */
     @PostMapping("/refreshToken")
     public Result refreshToken(HttpServletRequest request) {
+        log.debug("刷新Token");
         // 获取token
         String token = request.getHeader("token");
         // 如果header中不存在token，则从参数中获取
@@ -90,6 +94,8 @@ public class SysUserController {
      */
     @GetMapping("/getInfo")
     public Result getInfo() {
+        log.debug("获取当前登录用户的信息");
+
         // 从Spring security上下文中获取当前登录用户的信息
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
@@ -119,6 +125,8 @@ public class SysUserController {
      */
     @GetMapping("/getMenuList")
     public Result getMenuList(){
+        log.debug("获取菜单数据");
+
         // 从Spring security上下文中获取当前登录用户的信息
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();

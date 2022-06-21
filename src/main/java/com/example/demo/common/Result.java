@@ -15,7 +15,7 @@ public class Result<T> {
     private Result(){}
     /*** 成功执行，不返回数据 * @return */
     public static<T> Result<T> ok(){
-        Result<T> result = new Result<T>();
+        Result<T> result = new Result<>();
         result.setSuccess(true);
         result.setCode(ResultCode.SUCCESS);
         result.setMessage("执行成功");
@@ -27,7 +27,7 @@ public class Result<T> {
      * @return
      */
     public static<T> Result<T> ok(T data) {
-        Result<T> result = new Result<T>();
+        Result<T> result = new Result<>();
         result.setSuccess(true);
         result.setCode(ResultCode.SUCCESS);
         result.setMessage("执行成功");
@@ -39,7 +39,7 @@ public class Result<T> {
      * @return
      */
     public static<T> Result<T> error(){
-        Result<T> result = new Result<T>();
+        Result<T> result = new Result<>();
         result.setSuccess(false);
         result.setCode(ResultCode.ERROR);
         result.setMessage("执行失败");
@@ -78,7 +78,7 @@ public class Result<T> {
      * @return
      */
     public static<T> Result<T> exist(){
-        Result<T> result = new Result<T>();
+        Result<T> result = new Result<>();
         result.setSuccess(false); //存在该数据
         result.setCode(ResultCode.SUCCESS);
         result.setMessage("该数据存在");
