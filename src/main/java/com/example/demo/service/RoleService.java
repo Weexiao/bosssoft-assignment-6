@@ -53,4 +53,11 @@ public interface RoleService extends IService<RolePO> {
      * @return
      */
     List<Long> getRoleIdsByUserId(Long userId);
+
+    /**
+     * 根据角色名称查询角色ID
+     * @param roleName
+     * @return
+     */
+    RolePO getRoleByCode(String roleName);
 }

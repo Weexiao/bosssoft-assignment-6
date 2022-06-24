@@ -109,4 +109,17 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
         queryWrapper.eq("department_id", id);     // 判断部门下是否有用户
         return userMapper.selectCount(queryWrapper) > 0;
     }
+
+    /**
+     * 根据部门名查询部门
+     *
+     * @param departmentName
+     * @return
+     */
+    @Override
+    public DepartmentPO getDepartmentByName(String departmentName) {
+        QueryWrapper<DepartmentPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("department_name", departmentName);
+        return baseMapper.selectOne(queryWrapper);
+    }
 }

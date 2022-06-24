@@ -70,7 +70,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/add")
-    @PreAuthorize("hasAuthority('sys:user:add')")
+    // @PreAuthorize("hasAuthority('sys:user:add')")
     public Result add(@RequestBody UserPO userPO) {
         log.debug("添加用户");
 
@@ -95,7 +95,7 @@ public class UserController {
      * @return
      */
     @PutMapping("/update")
-    @PreAuthorize("hasAuthority('sys:user:edit')")
+    // @PreAuthorize("hasAuthority('sys:user:edit')")
     public Result update(@RequestBody UserPO userPO) {
         log.debug("修改用户");
 
@@ -118,7 +118,7 @@ public class UserController {
      * @return
      */
     @DeleteMapping("/delete/{userId}")
-    @PreAuthorize("hasAuthority('sys:user:delete')")
+    // @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result delete(@PathVariable Long userId) {
         log.debug("删除用户");
 
@@ -135,7 +135,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/getRoleListForAssign")
-    @PreAuthorize("hasAuthority('sys:user:assign')")
+    // @PreAuthorize("hasAuthority('sys:user:assign')")
     public Result getRoleListForAssign(RoleVO roleVO) {
         log.debug("获取分配角色列表");
 
@@ -152,7 +152,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/getRoleListByUserId/{userId}")
-    @PreAuthorize("hasAuthority('sys:user:assign')")
+    // @PreAuthorize("hasAuthority('sys:user:assign')")
     public Result getRoleListByUserId(@PathVariable Long userId) {
         log.debug("根据用户ID查询该用户拥有的角色列表");
 
@@ -166,7 +166,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/saveUserRole")
-    @PreAuthorize("hasAuthority('sys:user:assign')")
+    // @PreAuthorize("hasAuthority('sys:user:assign')")
     public Result saveUserRole(@RequestBody UserRoleDTO userRoleDTO) {
         log.debug("分配角色");
 

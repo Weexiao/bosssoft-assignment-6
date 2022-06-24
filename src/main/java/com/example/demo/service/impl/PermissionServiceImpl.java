@@ -159,4 +159,18 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         rolePermissionVO.setCheckList(listIds.toArray());
         return rolePermissionVO;
     }
+
+    /**
+     * 根据url查询权限
+     *
+     * @param url
+     * @return
+     */
+    @Override
+    public PermissionPO getPermissionByUrl(String url) {
+        // 构造条件构造器对象
+        QueryWrapper<PermissionPO> queryWrapper = new QueryWrapper<PermissionPO>();
+        queryWrapper.eq(!ObjectUtils.isEmpty(url), "url", url);
+        return baseMapper.selectOne(queryWrapper);
+    }
 }

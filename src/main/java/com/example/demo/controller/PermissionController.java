@@ -75,7 +75,7 @@ public class PermissionController {
      * @return
      */
     @PostMapping("/add")
-    @PreAuthorize("hasAuthority('sys:menu:add')")
+    // @PreAuthorize("hasAuthority('sys:menu:add')")
     public Result add(@RequestBody PermissionPO permissionPO){
         log.debug("添加菜单");
         if (permissionService.save(permissionPO)){
@@ -90,7 +90,7 @@ public class PermissionController {
      * @return
      */
     @PutMapping("/update")
-    @PreAuthorize("hasAuthority('sys:menu:edit')")
+    // @PreAuthorize("hasAuthority('sys:menu:edit')")
     public Result update(@RequestBody PermissionPO permissionPO){
         log.debug("修改菜单");
         if (permissionService.updateById(permissionPO)){
@@ -105,8 +105,8 @@ public class PermissionController {
      * @return
      */
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAuthority('sys:menu:delete')")
-    public Result update(@PathVariable Long id){
+    // @PreAuthorize("hasAuthority('sys:menu:delete')")
+    public Result delete(@PathVariable Long id){
         log.debug("删除菜单");
         if (permissionService.removeById(id)){
             return Result.ok().message("菜单删除成功");
@@ -120,7 +120,7 @@ public class PermissionController {
      * @return
      */
     @GetMapping("/check/{id}")
-    @PreAuthorize("hasAuthority('sys:menu:delete')")
+    // @PreAuthorize("hasAuthority('sys:menu:delete')")
     public Result check(@PathVariable Long id){
         log.debug("检查菜单下是否有子菜单");
         if (permissionService.hasChildrenOfPermission(id)){

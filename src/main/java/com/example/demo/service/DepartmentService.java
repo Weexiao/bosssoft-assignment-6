@@ -41,4 +41,11 @@ public interface DepartmentService extends IService<DepartmentPO> {
      * @return
      */
     boolean hasUserOfDepartment(Long id);
+
+    /**
+     * 根据部门名查询部门
+     * @param departmentName
+     * @return
+     */
+    DepartmentPO getDepartmentByName(String departmentName);
 }

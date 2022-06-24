@@ -51,4 +51,11 @@ public interface PermissionService extends IService<PermissionPO> {
      * @return
      */
     RolePermissionVO getAssignPermissionTree(Long userId, Long roleId);
+
+    /**
+     * 根据url查询权限
+     * @param url
+     * @return
+     */
+    PermissionPO getPermissionByUrl(String url);
 }

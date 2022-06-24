@@ -107,4 +107,23 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RolePO> implements 
     public List<Long> getRoleIdsByUserId(Long userId) {
         return baseMapper.getRoleIdsByUserId(userId);
     }
+
+    /**
+     * 根据角色名称查询角色ID
+     *
+     * @param roleName
+     * @return
+     */
+    @Override
+    public RolePO getRoleByCode(String roleName) {
+        // 创建条件构造器
+        QueryWrapper<RolePO> queryWrapper = new QueryWrapper<>();
+        // 角色名称
+        queryWrapper.eq(!ObjectUtils.isEmpty(roleName),
+                "role_code", roleName);
+        queryWrapper.ne("is_delete", 1);
+        // 排序
+        queryWrapper.orderByAsc("id");
+        return baseMapper.selectOne(queryWrapper);
+    }
 }
