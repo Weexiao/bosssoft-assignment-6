@@ -59,7 +59,7 @@ public class UserController {
         log.debug("查询用户列表");
 
         // 创建分页信息
-        IPage<UserPO> page = new Page<UserPO>(userVO.getPageNo(), userVO.getPageSize());
+        IPage<UserPO> page = new Page<>(userVO.getPageNo(), userVO.getPageSize());
         userService.findUserListByPage(page, userVO);
         return Result.ok(page);
     }
@@ -140,7 +140,7 @@ public class UserController {
         log.debug("获取分配角色列表");
 
         // 创建分页对象
-        IPage<RolePO> page = new Page<RolePO>(roleVO.getPageNo(), roleVO.getPageSize());
+        IPage<RolePO> page = new Page<>(roleVO.getPageNo(), roleVO.getPageSize());
         // 调用获取分配角色列表的方法
         roleService.findRoleListByUserId(page, roleVO);
         return Result.ok(page);
@@ -211,7 +211,6 @@ public class UserController {
         log.debug("修改密码");
 
         userPO.setPassword(passwordEncoder.encode(userPO.getPassword()));
-        System.out.println(userPO);
         // 调用修改密码的方法
         if (userService.updatePassword(userPO)) {
             return Result.ok().message("密码修改成功");

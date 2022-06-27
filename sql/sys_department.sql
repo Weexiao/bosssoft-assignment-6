@@ -1,0 +1,12 @@
+INSERT INTO `sys_department` VALUES (1, '广州码农信息技术有限公司', '020-8888888', '广州市天河区', 0, '顶级部门', 0, 0);
+INSERT INTO `sys_department` VALUES (2, '软件技术部', '020-88881001', '广州市天河区', 1, '广州码农信息技术有限公司', 1, 0);
+INSERT INTO `sys_department` VALUES (3, '人事管理部', '020-88881002', '广州市天河区', 1, '广州码农信息技术有限公司', 1, 0);
+INSERT INTO `sys_department` VALUES (4, '市场管理部', '020-88881003', '广州市天河区', 1, '广州码农信息技术有限公司', 1, 0);
+INSERT INTO `sys_department` VALUES (5, '软件研发部', '020-88881234', '广州市天河区', 1, '广州码农信息技术有限公司', 2, 0);
+INSERT INTO `sys_department` VALUES (6, 'Java技术部', '020-12345678', '广州市天河区', 2, '软件技术部', NULL, 1);
+INSERT INTO `sys_department` VALUES (7, 'Apple', '13935026149', '美国旧金山市', 0, '顶级部门', 0, 1);
+INSERT INTO `sys_department` VALUES (8, '测试部门', '13935026149', '测试地址', 0, '顶级部门', 0, 1);
+INSERT INTO `sys_department` VALUES (9, 'Google', '13899999999', '爱尔兰都柏林市', 0, '顶级部门', 0, 1);
+INSERT INTO `sys_department` VALUES (10, 'Google', '13899999999', '爱尔兰都柏林市', 0, '顶级部门', 0, 1);
+INSERT INTO `sys_department` VALUES (11, 'Google', '13899999999', '爱尔兰都柏林市', 0, '顶级部门', 0, 1);
+INSERT INTO `sys_department` VALUES (12, 'Google', '13899999999', '爱尔兰都柏林市', 0, '顶级部门', 0, 1);
